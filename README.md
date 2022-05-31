@@ -6,9 +6,11 @@
 In order to access this repository, clone it from [GitHub](https://github.com/kaylab78/weather-dashboard) using the command "git clone git@github.com:kaylab78/weather-dashboard.git" in the command line interface.
 
 ## Usage
-To view the deployed website, [click here]().
+To view the deployed website, [click here](https://kaylab78.github.io/weather-dashboard/).
 
 ## Credits
+The [OpenWeather One Call API](https://openweathermap.org/api/one-call-api) is used in this project.
+
 The wording for the license on this project is from the MIT License outlined [here](https://choosealicense.com/licenses/mit/).
 
 ## License
