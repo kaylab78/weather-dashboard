@@ -10,7 +10,7 @@ var formSubmitHandler = function (event) {
     var city = cityInputEl.value.trim();
 
     if (city) {
-        getWeather(city);
+        getCoordinates(city);
 
         // Clear old content
         weatherDisplayEl.textContent = "";
@@ -20,18 +20,19 @@ var formSubmitHandler = function (event) {
     }
 };
 
-var getWeather = function (city) {
+var getCoordinates = function (city) {
     // Format the OpenWeather One Call API
-    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=7ab439372a6b7834b1058543aced3bee";
+    var cityApi = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=7ab439372a6b7834b1058543aced3bee";
 
     // Make a get request to url
-    fetch(apiUrl)
+    fetch(cityApi)
         .then(function(response) {
             // Request was successful
             if (response.ok) {
-                console.log(response);
+                // console.log(response);
                 response.json().then(function(data) {
-                    console.log(data);
+                    console.log(data.coord.lat);
+                    console.log(data.coord.lon);
                     // displayWeather(data, city);
                 });
             } else {
