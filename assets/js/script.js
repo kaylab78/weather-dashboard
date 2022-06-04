@@ -1,6 +1,6 @@
 var searchFormEl = document.querySelector("#search-form");
 var cityInputEl = document.querySelector("#city-search");
-var weatherDisplayEl = document.querySelector("#weather-display");
+var currentWeatherEl = document.querySelector("#current-weather");
 
 var formSubmitHandler = function (event) {
     // Prevent page from refreshing
@@ -10,16 +10,101 @@ var formSubmitHandler = function (event) {
     var city = cityInputEl.value.trim();
 
     if (city) {
-        getCoordinates(city);
+        getWeather(city);
 
         // Clear old content
-        weatherDisplayEl.textContent = "";
+        currentWeatherEl.textContent = "";
         cityInputEl.value = "";
     } else {
         alert("Please enter a city");
     }
 };
 
+var getWeather = function(city) {
+    var lat;
+    var lon;
+
+    // OpenWeather One Call API uses city entered by user
+    var cityApi = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=7ab439372a6b7834b1058543aced3bee";
+
+    fetch(cityApi)
+        .then(function(response) {
+            if (response.ok) {
+                return response.json();
+            } else {
+                alert("Error: City not found");
+            }
+        }).then (function (data) {
+            // Set latitude and longitude information from city to variables
+            lat = data.coord.lat;
+            lon = data.coord.lon;
+
+            // Use lat and long variables to get current conditions and seven day weather
+            return fetch("https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly&units=imperial&appid=7ab439372a6b7834b1058543aced3bee");
+        }).then(function (response) {
+            if (response.ok) {
+                return response.json();
+            } else {
+                alert("Error: City not found");
+            }
+        }).then(function(data) {
+            console.log(data);
+
+            var cityName = document.createElement("h3");
+            cityName.textContent = city;
+            currentWeatherEl.appendChild(cityName);
+        }) 
+        .catch(function (error) {
+            alert("Unable to connect");
+        });
+}
+
+// Add event listener to form
+searchFormEl.addEventListener("submit", formSubmitHandler);
+
+/*
+var getCoordinates = function (city) {
+    // OpenWeather One Call API uses city entered by user
+    var cityApi = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=7ab439372a6b7834b1058543aced3bee";
+
+    // Fetch returns the latitude and longitude for that city
+    fetch(cityApi)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            // console.log(data.coord.lat);
+            // console.log(data.coord.lon);
+            var lat = data.coord.lat;
+            var lon = data.coord.lon;
+
+            console.log(lat);
+            console.log(lon);
+        })
+};
+
+var getWeather = function () {
+    var weatherApi = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly&units=imperial&appid=7ab439372a6b7834b1058543aced3bee";
+
+    fetch(weatherApi)
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function () {
+                    console.log(response);
+                });
+            } else {
+                alert("Error: City not found");
+            }
+        })
+        .catch(function (error) {
+            alert("Unable to connect");
+        })
+
+}
+*/
+
+// This works to get the latitude and longitude of a city
+/*
 var getCoordinates = function (city) {
     // Format the OpenWeather One Call API
     var cityApi = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=7ab439372a6b7834b1058543aced3bee";
@@ -43,11 +128,11 @@ var getCoordinates = function (city) {
             alert("Unable to connect to OpenWeather");
         });
 };
+*/
 
 // var displayWeather = function()
 
-// Add event listener to form
-searchFormEl.addEventListener("submit", formSubmitHandler);
+
 
 // Search for a city
 
