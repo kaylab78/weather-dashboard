@@ -1,6 +1,7 @@
 var searchFormEl = document.querySelector("#search-form");
 var cityInputEl = document.querySelector("#city-search");
 var currentWeatherEl = document.querySelector("#current-weather");
+var currentInfoEl = document.querySelector("#current-info");
 var city;
 var lat;
 var lon;
@@ -62,13 +63,12 @@ function getWeather() {
 }
 
 function renderResults(data) {
-    var cityName = document.createElement("h3");
     // Convert unix timestamp into human-readable time
     var currentDate = data.current.dt;
 
     // Print city and current date to page
-    cityName.textContent = city + " " + currentDate;
-    currentWeatherEl.appendChild(cityName);
+    currentInfoEl.textContent = city + " " + currentDate;
+    currentWeatherEl.appendChild(currentInfoEl);
 
 
 }
