@@ -60,6 +60,19 @@ var getWeather = function(city) {
 // Add event listener to form
 searchFormEl.addEventListener("submit", formSubmitHandler);
 
+// Search for a city
+
+// City is added to search history
+
+// Present weather conditions: city name, date, icon representation of weather conditions, temperature, humidity, wind speed, UV index)
+
+// UV index is a color that indicates if weather is favorable, moderate, severe
+
+// Future weather conditions: 5-day forecast, date, icon representation of weather conditions, temperature, wind speed, humidity
+
+// Click on city in search history for conditions for that city
+
+
 /*
 var getCoordinates = function (city) {
     // OpenWeather One Call API uses city entered by user
@@ -129,17 +142,3 @@ var getCoordinates = function (city) {
 */
 
 // var displayWeather = function()
-
-
-
-// Search for a city
-
-// City is added to search history
-
-// Present weather conditions: city name, date, icon representation of weather conditions, temperature, humidity, wind speed, UV index)
-
-// UV index is a color that indicates if weather is favorable, moderate, severe
-
-// Future weather conditions: 5-day forecast, date, icon representation of weather conditions, temperature, wind speed, humidity
-
-// Click on city in search history for conditions for that city
