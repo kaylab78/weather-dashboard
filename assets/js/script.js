@@ -29,11 +29,8 @@ var getWeather = function(city) {
 
     fetch(cityApi)
         .then(function(response) {
-            if (response.ok) {
-                return response.json();
-            } else {
-                alert("Error: City not found");
-            }
+            return response.json();
+
         }).then (function (data) {
             // Set latitude and longitude information from city to variables
             lat = data.coord.lat;
@@ -50,6 +47,7 @@ var getWeather = function(city) {
         }).then(function(data) {
             console.log(data);
 
+            // Print city to page
             var cityName = document.createElement("h3");
             cityName.textContent = city;
             currentWeatherEl.appendChild(cityName);
