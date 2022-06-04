@@ -4,8 +4,9 @@ var currentWeatherEl = document.querySelector("#current-weather");
 var city;
 var lat;
 var lon;
+var currentDate;
 
-var formSubmitHandler = function (event) {
+function formSubmitHandler (event) {
     // Prevent page from refreshing
     event.preventDefault();
 
@@ -23,7 +24,7 @@ var formSubmitHandler = function (event) {
     }
 };
 
-var getCoordinates = function(city) {
+function getCoordinates (city) {
 
     // OpenWeather One Call API uses city entered by user
     var cityApi = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=7ab439372a6b7834b1058543aced3bee";
@@ -53,18 +54,23 @@ function getWeather() {
             }
         }).then(function(data) {
             console.log(data);
-            renderResults();
+            renderResults(data);
         }) 
         .catch(function (error) {
             alert("Unable to connect");
         });
 }
 
-function renderResults() {
-    // Print city to page
+function renderResults(data) {
     var cityName = document.createElement("h3");
-    cityName.textContent = city;
+    // Convert unix timestamp into human-readable time
+    var currentDate = data.current.dt;
+
+    // Print city and current date to page
+    cityName.textContent = city + " " + currentDate;
     currentWeatherEl.appendChild(cityName);
+
+
 }
 
 // Add event listener to form
