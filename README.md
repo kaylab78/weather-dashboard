@@ -11,6 +11,8 @@ To view the deployed website, [click here](https://kaylab78.github.io/weather-da
 ## Credits
 The [OpenWeather One Call API](https://openweathermap.org/api/one-call-api) is used in this project.
 
+MDN contributors. (2022, April 25). *Date.prototype.toLocaleDateString()* MDN Web Docs. [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString).
+
 The wording for the license on this project is from the MIT License outlined [here](https://choosealicense.com/licenses/mit/).
 
 ## License

@@ -63,8 +63,9 @@ function getWeather() {
 }
 
 function renderResults(data) {
-    // Convert unix timestamp into human-readable time
-    var currentDate = data.current.dt;
+    // Convert unix timestamp into human-readable time (source: MDN contributors)
+    var currentDate = new Date (data.current.dt * 1000).toLocaleDateString("en-US");
+    console.log(currentDate);
 
     // Print city and current date to page
     currentInfoEl.textContent = city + " " + currentDate;
