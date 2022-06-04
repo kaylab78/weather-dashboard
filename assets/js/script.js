@@ -1,7 +1,6 @@
 var searchFormEl = document.querySelector("#search-form");
 var cityInputEl = document.querySelector("#city-search");
 var currentWeatherEl = document.querySelector("#current-weather");
-var currentInfoEl = document.querySelector("#current-info");
 var city;
 var lat;
 var lon;
@@ -63,15 +62,29 @@ function getWeather() {
 }
 
 function renderResults(data) {
-    // Convert unix timestamp into human-readable time (source: MDN contributors)
+    // New dynamic HTML elements for current conditions
+    var currentInfoEl = document.createElement("h3");
+    var currentTempEl = document.createElement("p");
+    var currentWindEl = document.createElement("p");
+    var currentHumidityEl = document.createElement("p");
+    var currentUvEl = document.createElement("p");
+
+    // Convert unix timestamp into human-readable time (reference: MDN contributors)
     var currentDate = new Date (data.current.dt * 1000).toLocaleDateString("en-US");
-    console.log(currentDate);
 
-    // Print city and current date to page
+    // Set text content for dynamic elements
     currentInfoEl.textContent = city + " " + currentDate;
+    currentTempEl.textContent = "Temp: " + data.current.temp + "°F";
+    currentWindEl.textContent = "Wind: " + data.current.wind_speed + " MPH";
+    currentHumidityEl.textContent = "Humidity: " + data.current.humidity + "%";
+    currentUvEl.textContent = "UV Index: " + data.current.uvi;
+
+    // Print city, date and current conditions to page
     currentWeatherEl.appendChild(currentInfoEl);
-
-
+    currentWeatherEl.appendChild(currentTempEl);
+    currentWeatherEl.appendChild(currentWindEl);
+    currentWeatherEl.appendChild(currentHumidityEl);
+    currentWeatherEl.appendChild(currentUvEl);
 }
 
 // Add event listener to form
