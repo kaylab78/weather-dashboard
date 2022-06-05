@@ -105,20 +105,22 @@ function renderDailyWeather(data) {
 
         // Convert unix timecode into human-readable time
         var date = new Date (data.daily[i].dt * 1000).toLocaleDateString("en-US");
-        dailyDiv.append(date);
 
         // Dynamic HTML elements for future conditions
         // Weather icon
+        var dateH4 = document.createElement("h4");
         var dailyTempEl = document.createElement("p");
         var dailyWindEl = document.createElement("p");
         var dailyHumidityEl = document.createElement("p");
         
         // Set text content for dynamic elements
+        dateH4.textContent = date;
         dailyTempEl.textContent = "Temp: " + data.daily[i].temp.day + "°F";
         dailyWindEl.textContent = "Wind: " + data.daily[i].wind_speed + " MPH";
         dailyHumidityEl.textContent = "Humidity: " + data.daily[i].humidity + "%";
 
         // Print city, date and current conditions to page
+        dailyDiv.append(dateH4);
         dailyDiv.appendChild(dailyTempEl);
         dailyDiv.appendChild(dailyWindEl);
         dailyDiv.appendChild(dailyHumidityEl);

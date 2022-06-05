@@ -41,16 +41,13 @@ input {
 .outline {
     padding: 5px;
     border: 1px solid #000;
+    margin-bottom: 15px;
 }
 
 /* 5-day forecast */
-#daily-headline {
-    line-height: 2;
-}
-
 .daily {
     background-color: #2F6C7A;
     color: #fff;
-    margin: 10px;
+    margin: 2px 10px 10px 10px;
     padding-top: 10px;
 }
