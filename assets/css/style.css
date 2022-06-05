@@ -14,3 +14,23 @@ header {
     padding: 10px;
     text-align: center;
 }
+
+main {
+    padding: 15px;
+}
+
+/* Styling the city search form */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    line-height: 2;
+}
+
+.btn {
+    background-color: #0e90ad;
+    color: #fff;
+    margin: 5px 0 5px 0;
+}
