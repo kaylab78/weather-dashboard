@@ -21,6 +21,8 @@ function formSubmitHandler (event) {
 
         // Clear old content
         currentWeatherEl.textContent = "";
+        dailyHeadlineEl.textContent = "";
+        fiveDayWeatherEl.textContent = "";
         cityInputEl.value = "";
     } else {
         alert("Please enter a city");
