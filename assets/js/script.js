@@ -73,16 +73,31 @@ function renderCurrentResults(data) {
     var currentWindEl = document.createElement("p");
     var currentHumidityEl = document.createElement("p");
     var currentUvEl = document.createElement("p");
+    var uvIndexEl = document.createElement("span");
 
     // Convert unix timestamp into human-readable time (reference: MDN contributors)
     var currentDate = new Date (data.current.dt * 1000).toLocaleDateString("en-US");
+
+    // Color-code UV Index (reference: World Health Organization)
+    if (data.current.uvi < 3) {
+        $(uvIndexEl).addClass("uv-low");
+    } else if (data.current.uvi >= 3 && data.current.uvi < 6) {
+        $(uvIndexEl).addClass("uv-moderate");
+    } else if (data.current.uvi >= 6 && data.current.uvi < 8) {
+        $(uvIndexEl).addClass("uv-high");
+    } else if (data.current.uvi >= 8 && data.current.uvi < 11) {
+        $(uvIndexEl).addClass("uv-very-high");
+    } else {
+        $(uvIndexEl).addClass("uv-extreme");
+    }
 
     // Set text content for dynamic elements
     currentInfoEl.textContent = city + " " + currentDate;
     currentTempEl.textContent = "Temp: " + data.current.temp + "°F";
     currentWindEl.textContent = "Wind: " + data.current.wind_speed + " MPH";
     currentHumidityEl.textContent = "Humidity: " + data.current.humidity + "%";
-    currentUvEl.textContent = "UV Index: " + data.current.uvi;
+    currentUvEl.textContent = "UV Index: ";
+    uvIndexEl.textContent = data.current.uvi;
 
     // Print city, date and current conditions to page
     currentWeatherEl.appendChild(currentInfoEl);
@@ -90,6 +105,7 @@ function renderCurrentResults(data) {
     currentWeatherEl.appendChild(currentWindEl);
     currentWeatherEl.appendChild(currentHumidityEl);
     currentWeatherEl.appendChild(currentUvEl);
+    currentUvEl.appendChild(uvIndexEl);
 
     renderDailyWeather(data);
 }
@@ -125,6 +141,10 @@ function renderDailyWeather(data) {
         dailyDiv.appendChild(dailyWindEl);
         dailyDiv.appendChild(dailyHumidityEl);
     }
+}
+
+function saveData() {
+
 }
 
 // Add event listener to form
