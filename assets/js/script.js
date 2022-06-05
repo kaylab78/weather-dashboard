@@ -3,18 +3,19 @@ var cityInputEl = document.querySelector("#city-search");
 var currentWeatherEl = document.querySelector("#current-weather");
 var dailyHeadlineEl = document.querySelector("#daily-headline");
 var fiveDayWeatherEl = document.querySelector("#five-day");
-var city;
-var lat;
-var lon;
+var searchHistoryEl = document.querySelector("#search-history");
+// var city;
+// var lat;
+// var lon;
 var currentDate;
-var i;
+var search = [];
 
 function formSubmitHandler (event) {
     // Prevent page from refreshing
     event.preventDefault();
 
     // Get value form input element
-    var city = cityInputEl.value.trim();
+    city = cityInputEl.value.trim();
 
     if (city) {
         getCoordinates(city);
@@ -30,6 +31,7 @@ function formSubmitHandler (event) {
 };
 
 function getCoordinates (city) {
+    saveData(city);
 
     // OpenWeather One Call API uses city entered by user
     var cityApi = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=7ab439372a6b7834b1058543aced3bee";
@@ -40,14 +42,17 @@ function getCoordinates (city) {
 
         }).then (function (data) {
             // Set latitude and longitude information from city to variables
+            console.log(data);
             lat = data.coord.lat;
             lon = data.coord.lon;
-            getWeather(lat, lon);
+            getWeather(data);
         })
 }
 
-function getWeather() {
+function getWeather(location) {
     // Use lat and long variables to get current conditions and seven day weather
+    console.log(location);
+    var city = location.name;
     var weatherApi = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly&units=imperial&appid=7ab439372a6b7834b1058543aced3bee";
 
     fetch(weatherApi)
@@ -57,16 +62,16 @@ function getWeather() {
             } else {
                 alert("Error: City not found");
             }
-        }).then(function(data) {
+        }).then(function (data) {
             console.log(data);
-            renderCurrentResults(data);
+            renderCurrentResults(data, city);
         }) 
         .catch(function (error) {
             alert("Unable to connect");
         });
 }
 
-function renderCurrentResults(data) {
+function renderCurrentResults(data, city) {
     currentWeatherEl.setAttribute("class", "outline");
 
     // New dynamic HTML elements for current conditions
@@ -101,6 +106,7 @@ function renderCurrentResults(data) {
     currentUvEl.textContent = "UV Index: ";
     uvIndexEl.textContent = data.current.uvi;
 
+    currentWeatherEl.innerHTML = "";
     // Print city, date and current conditions to page
     currentWeatherEl.appendChild(currentInfoEl);
     currentWeatherEl.appendChild(currentTempEl);
@@ -115,7 +121,9 @@ function renderCurrentResults(data) {
 function renderDailyWeather(data) {
     dailyHeadlineEl.textContent = "5-Day Forecast:"
 
-    for (var i=0; i < 5; i++) {
+    fiveDayWeatherEl.innerHTML = "";
+
+    for (var i=1; i < 6; i++) {
         // Dynamically create divs to hold five-day forecast
         var dailyDiv = document.createElement("div");
         fiveDayWeatherEl.append(dailyDiv);
@@ -145,12 +153,38 @@ function renderDailyWeather(data) {
     }
 }
 
-function saveData() {
+function saveData(data) {
+    search.push(data);
+    localStorage.setItem("search-history", JSON.stringify(data));
+    renderSearchHistory();
+}
 
+function renderSearchHistory() {
+    searchHistoryEl.innerHTML = "";
+    for (var i = search.length-1; i >= 0; i--) {
+        var button = document.createElement("button");
+        button.setAttribute("type", "button");
+        button.textContent = search[i];
+        button.setAttribute("data-search", search[i]);
+        button.setAttribute("class", "history-btn");
+        searchHistoryEl.appendChild(button);
+    }
+}
+
+function handleSearchHistory(e) {
+    if (!e.target.matches(".history-btn")) {
+        return
+    } 
+
+    var btn = e.target;
+    var search = btn.getAttribute("data-search");
+    getCoordinates(search);
 }
 
 // Add event listener to form
 searchFormEl.addEventListener("submit", formSubmitHandler);
+
+searchHistoryEl.addEventListener("click", handleSearchHistory);
 
 // Search for a city
 
