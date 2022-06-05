@@ -1,6 +1,8 @@
 var searchFormEl = document.querySelector("#search-form");
 var cityInputEl = document.querySelector("#city-search");
 var currentWeatherEl = document.querySelector("#current-weather");
+var dailyHeadlineEl = document.querySelector("#daily-headline");
+var fiveDayWeatherEl = document.querySelector("#five-day");
 var city;
 var lat;
 var lon;
@@ -85,6 +87,13 @@ function renderCurrentResults(data) {
     currentWeatherEl.appendChild(currentWindEl);
     currentWeatherEl.appendChild(currentHumidityEl);
     currentWeatherEl.appendChild(currentUvEl);
+
+    renderDailyWeather();
+}
+
+function renderDailyWeather() {
+    console.log("Five-Day Weather");
+    dailyHeadlineEl.textContent = "5-Day Forecast:"
 }
 
 // Add event listener to form
