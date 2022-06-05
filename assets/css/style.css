@@ -44,3 +44,13 @@ input {
 }
 
 /* 5-day forecast */
+#daily-headline {
+    line-height: 2;
+}
+
+.daily {
+    background-color: #2F6C7A;
+    color: #fff;
+    margin: 10px;
+    padding-top: 10px;
+}
