@@ -5,6 +5,8 @@
 ## Installation
 In order to access this repository, clone it from [GitHub](https://github.com/kaylab78/weather-dashboard) using the command "git clone git@github.com:kaylab78/weather-dashboard.git" in the command line interface.
 
+You will need to sign up for a free API key from [Open Weather](https://home.openweathermap.org/users/sign_up).
+
 ## Usage
 To view the deployed website, [click here](https://kaylab78.github.io/weather-dashboard/).
 
