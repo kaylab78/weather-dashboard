@@ -19,7 +19,7 @@ main {
     padding: 15px;
 }
 
-/* Styling the city search form */
+/* City search form */
 form {
     display: flex;
     flex-direction: column;
@@ -34,3 +34,13 @@ input {
     color: #fff;
     margin: 5px 0 5px 0;
 }
+
+/* Search history */
+
+/* Current weather section */
+.outline {
+    padding: 5px;
+    border: 1px solid #000;
+}
+
+/* 5-day forecast */

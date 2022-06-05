@@ -65,6 +65,8 @@ function getWeather() {
 }
 
 function renderCurrentResults(data) {
+    currentWeatherEl.setAttribute("class", "outline");
+
     // New dynamic HTML elements for current conditions
     var currentInfoEl = document.createElement("h2");
     var currentTempEl = document.createElement("p");
@@ -99,7 +101,7 @@ function renderDailyWeather(data) {
         // Dynamically create divs to hold five-day forecast
         var dailyDiv = document.createElement("div");
         fiveDayWeatherEl.append(dailyDiv);
-        dailyDiv.setAttribute("class", "col");
+        dailyDiv.setAttribute("class", "col-sm");
 
         // Convert unix timecode into human-readable time
         var date = new Date (data.daily[i].dt * 1000).toLocaleDateString("en-US");
