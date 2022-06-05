@@ -54,16 +54,16 @@ function getWeather() {
             }
         }).then(function(data) {
             console.log(data);
-            renderResults(data);
+            renderCurrentResults(data);
         }) 
         .catch(function (error) {
             alert("Unable to connect");
         });
 }
 
-function renderResults(data) {
+function renderCurrentResults(data) {
     // New dynamic HTML elements for current conditions
-    var currentInfoEl = document.createElement("h3");
+    var currentInfoEl = document.createElement("h2");
     var currentTempEl = document.createElement("p");
     var currentWindEl = document.createElement("p");
     var currentHumidityEl = document.createElement("p");
