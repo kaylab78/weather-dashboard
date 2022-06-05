@@ -7,6 +7,7 @@ var city;
 var lat;
 var lon;
 var currentDate;
+var i;
 
 function formSubmitHandler (event) {
     // Prevent page from refreshing
@@ -88,12 +89,19 @@ function renderCurrentResults(data) {
     currentWeatherEl.appendChild(currentHumidityEl);
     currentWeatherEl.appendChild(currentUvEl);
 
-    renderDailyWeather();
+    renderDailyWeather(data);
 }
 
 function renderDailyWeather() {
-    console.log("Five-Day Weather");
     dailyHeadlineEl.textContent = "5-Day Forecast:"
+
+    for (var i=0; i < 5; i++) {
+        var dailyDiv = document.createElement("div");
+        fiveDayWeatherEl.append(dailyDiv);
+        dailyDiv.setAttribute("class", "col");
+        // var dailyDiv = $("<div>").addClass("col");
+
+    }
 }
 
 // Add event listener to form
