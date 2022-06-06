@@ -1,10 +1,28 @@
 # Weather Dashboard
 
 ## Description
-One issue to work out in the future is that when a user enters random gibberish into the search query, that string of characters is logged into the search history but no data shows on the page.
+This is a simple weather dashboard that allows the user to search for a city and receive the current weather and the five-day forecast. The user can also view their previous city searches.
+
+I approached this project thinking about "one step at a time." I coded my JavaScript functions to do one thing. 
+- formSubmitHandler handles the search form. 
+- getCoordinates uses the city entered by the user to get the latitude and longitude coordinates of that city from the API response. 
+- getWeather gets the weather data from the API response using the coordinates. 
+- renderCurrentResults prints the current weather conditions to the page. 
+- renderDailyWeather prints the five-day forecast to the page.
+- saveData saves the search to localStorage.
+- renderSearchHistory prints previous city searches to the left side of the page.
+- handleSearchHistory starts the process over with getCoordinates when the user clicks on one of the buttons for the previous cities searched.
+
+One issue I encountered when doing this project was that a couple of my variables were in local scope when I needed them to be in the global scope. My tutor pointed out that this can be a tricky part of breaking down functions into doing one specific thing. It's something that I will be watching for in the future. 
+
+Another issue I need to work out in the future is that when a user enters random gibberish into the search query, that string of characters is logged into the search history but no data shows on the page.
+
+Lastly, my tutor pointed out that there is a lag between when the user clicks the search button and when the data appears on the screen. If this project were to be on a bigger scale, that lag could be detrimental to the user's experience. 
 
 ## Installation
 In order to access this repository, clone it from [GitHub](https://github.com/kaylab78/weather-dashboard) using the command "git clone git@github.com:kaylab78/weather-dashboard.git" in the command line interface.
+
+Sign up for a free API key to OpenWeather [here](https://openweathermap.org/price).
 
 ## Usage
 To view the deployed website, [click here](https://kaylab78.github.io/weather-dashboard/).
