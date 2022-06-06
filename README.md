@@ -1,14 +1,22 @@
 # Weather Dashboard
 
 ## Description
+One issue to work out in the future is that when a user enters random gibberish into the search query, that string of characters is logged into the search history but no data shows on the page.
 
 ## Installation
 In order to access this repository, clone it from [GitHub](https://github.com/kaylab78/weather-dashboard) using the command "git clone git@github.com:kaylab78/weather-dashboard.git" in the command line interface.
 
-You will need to sign up for a free API key from [Open Weather](https://home.openweathermap.org/users/sign_up).
-
 ## Usage
 To view the deployed website, [click here](https://kaylab78.github.io/weather-dashboard/).
+
+When the user opens the webpage, they are presented with an empty search query where they can type in a city. If they click the search button without entering any data, they are alerted and asked to enter a city name.
+![The weather dashboard shows a window alert asking the user to enter a city.](assets/images/screenshot-1.png)
+
+When the user enters a city into the search bar, they are presented with the current weather conditions and a five-day forecast.
+![The weather dashboard shows the weather for Minneapolis on the date 6/5/2022. Temperature is 64.18°F. Wind speed is 8.05 miles per hour. Humidity is 78%. UV index is 0. The five-day forecast has the weather for each day in individual boxes below the current weather conditions.](assets/images/screenshot-2.png)
+
+When the user searches for a new city, their previous searches log into the search history on the left side of the page. The user can click on those previous searches to get the weather again.
+![The screen shows the weather for Tokyo on 6/5/2022. On the left side of the page are gray buttons that say "Tokyo, Portland, Charlotte, Tokyo, Minneapolis."](assets/images/screenshot-3.png)
 
 ## Credits
 The [OpenWeather One Call API](https://openweathermap.org/api/one-call-api) is used in this project.
