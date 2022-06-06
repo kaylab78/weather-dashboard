@@ -4,9 +4,6 @@ var currentWeatherEl = document.querySelector("#current-weather");
 var dailyHeadlineEl = document.querySelector("#daily-headline");
 var fiveDayWeatherEl = document.querySelector("#five-day");
 var searchHistoryEl = document.querySelector("#search-history");
-// var city;
-// var lat;
-// var lon;
 var currentDate;
 var search = [];
 
@@ -14,8 +11,8 @@ function formSubmitHandler (event) {
     // Prevent page from refreshing
     event.preventDefault();
 
-    // Get value form input element
-    city = cityInputEl.value.trim();
+    // Get value from input element
+    var city = cityInputEl.value.trim();
 
     if (city) {
         getCoordinates(city);
@@ -42,17 +39,16 @@ function getCoordinates (city) {
 
         }).then (function (data) {
             // Set latitude and longitude information from city to variables
-            console.log(data);
             lat = data.coord.lat;
             lon = data.coord.lon;
             getWeather(data);
         })
 }
 
-function getWeather(location) {
+function getWeather(data) {
     // Use lat and long variables to get current conditions and seven day weather
-    console.log(location);
-    var city = location.name;
+    console.log(data);
+    var city = data.name;
     var weatherApi = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly&units=imperial&appid=7ab439372a6b7834b1058543aced3bee";
 
     fetch(weatherApi)
@@ -133,7 +129,6 @@ function renderDailyWeather(data) {
         var date = new Date (data.daily[i].dt * 1000).toLocaleDateString("en-US");
 
         // Dynamic HTML elements for future conditions
-        // Weather icon
         var dateH4 = document.createElement("h4");
         var dailyTempEl = document.createElement("p");
         var dailyWindEl = document.createElement("p");
@@ -153,12 +148,14 @@ function renderDailyWeather(data) {
     }
 }
 
+// Save weather data to localStorage
 function saveData(data) {
     search.push(data);
     localStorage.setItem("search-history", JSON.stringify(data));
     renderSearchHistory();
 }
 
+// Create dynamic buttons storing the city searched
 function renderSearchHistory() {
     searchHistoryEl.innerHTML = "";
     for (var i = search.length-1; i >= 0; i--) {
@@ -176,24 +173,13 @@ function handleSearchHistory(e) {
         return
     } 
 
-    var btn = e.target;
-    var search = btn.getAttribute("data-search");
+    var historyBtn = e.target;
+    var search = historyBtn.getAttribute("data-search");
     getCoordinates(search);
 }
 
 // Add event listener to form
 searchFormEl.addEventListener("submit", formSubmitHandler);
 
+// Add event listener to city search dynamic buttons
 searchHistoryEl.addEventListener("click", handleSearchHistory);
-
-// Search for a city
-
-// City is added to search history
-
-// Present weather conditions: city name, date, icon representation of weather conditions, temperature, humidity, wind speed, UV index)
-
-// UV index is a color that indicates if weather is favorable, moderate, severe
-
-// Future weather conditions: 5-day forecast, date, icon representation of weather conditions, temperature, wind speed, humidity
-
-// Click on city in search history for conditions for that city

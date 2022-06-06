@@ -36,7 +36,20 @@ input {
 }
 
 /* Search history */
+.history-btn {
+    background-color: #d4d4d4;
+    color: #000;
+    margin: 5px 0 5px 0;
+    padding: 5px;
+    border-radius: 5px;
+    width: 100%;
+    border-style: none;
+}
 
+.history-btn:hover {
+    background-color: #0e90ad;
+    color: #fff;
+}
 
 /* Current weather section */
 .outline {
