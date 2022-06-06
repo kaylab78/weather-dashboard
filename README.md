@@ -13,6 +13,8 @@ I approached this project thinking about "one step at a time." I coded my JavaSc
 - renderSearchHistory prints previous city searches to the left side of the page.
 - handleSearchHistory starts the process over with getCoordinates when the user clicks on one of the buttons for the previous cities searched.
 
+Once I got the hang of working with the API, I enjoyed the process of finding the correct data in the response object. I felt like a detective. I also understood better how websites in general get information from one another. This week was a good step in my understanding of front-end web development.
+
 One issue I encountered when doing this project was that a couple of my variables were in local scope when I needed them to be in the global scope. My tutor pointed out that this can be a tricky part of breaking down functions into doing one specific thing. It's something that I will be watching for in the future. 
 
 Another issue I need to work out in the future is that when a user enters random gibberish into the search query, that string of characters is logged into the search history but no data shows on the page.
