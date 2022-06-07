@@ -17,7 +17,7 @@ Once I got the hang of working with the API, I enjoyed the process of finding th
 
 One issue I encountered when doing this project was that a couple of my variables were in local scope when I needed them to be in the global scope. My tutor pointed out that this can be a tricky part of breaking down functions into doing one specific thing. It's something that I will be watching for in the future. 
 
-Another issue I need to work out in the future is that when a user enters random gibberish into the search query, that string of characters is logged into the search history but no data shows on the page.
+An issue I need to work out in the future is that when a user enters random gibberish into the search query, that string of characters is logged into the search history but no data shows on the page.
 
 Lastly, my tutor pointed out that there is a lag between when the user clicks the search button and when the data appears on the screen. If this project were to be on a bigger scale, that lag could be detrimental to the user's experience. 
 
