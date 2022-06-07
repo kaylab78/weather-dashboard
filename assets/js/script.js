@@ -4,7 +4,6 @@ var currentWeatherEl = document.querySelector("#current-weather");
 var dailyHeadlineEl = document.querySelector("#daily-headline");
 var fiveDayWeatherEl = document.querySelector("#five-day");
 var searchHistoryEl = document.querySelector("#search-history");
-var currentDate;
 var search = [];
 
 function formSubmitHandler (event) {
@@ -70,16 +69,25 @@ function getWeather(data) {
 function renderCurrentResults(data, city) {
     currentWeatherEl.setAttribute("class", "outline");
 
+    // src for the weather icon img
+    var iconUrl = "https://openweathermap.org/img/w/" + data.current.weather[0].icon + ".png";
+    var iconDescription = data.current.weather[0].description;
+
+    // Convert unix timestamp into human-readable time (reference: MDN contributors)
+    var currentDate = new Date (data.current.dt * 1000).toLocaleDateString("en-US");
+
     // New dynamic HTML elements for current conditions
     var currentInfoEl = document.createElement("h2");
+    var currentIconEl = document.createElement("img");
     var currentTempEl = document.createElement("p");
     var currentWindEl = document.createElement("p");
     var currentHumidityEl = document.createElement("p");
     var currentUvEl = document.createElement("p");
     var uvIndexEl = document.createElement("span");
 
-    // Convert unix timestamp into human-readable time (reference: MDN contributors)
-    var currentDate = new Date (data.current.dt * 1000).toLocaleDateString("en-US");
+    // Set src and alt for weather icon img
+    currentIconEl.setAttribute("src", iconUrl);
+    currentIconEl.setAttribute("alt", iconDescription);
 
     // Color-code UV Index (reference: World Health Organization)
     if (data.current.uvi < 3) {
@@ -94,7 +102,7 @@ function renderCurrentResults(data, city) {
         $(uvIndexEl).addClass("uv-extreme");
     }
 
-    // Set text content for dynamic elements
+    // Set content for dynamic elements
     currentInfoEl.textContent = city + " " + currentDate;
     currentTempEl.textContent = "Temp: " + data.current.temp + "°F";
     currentWindEl.textContent = "Wind: " + data.current.wind_speed + " MPH";
@@ -102,9 +110,12 @@ function renderCurrentResults(data, city) {
     currentUvEl.textContent = "UV Index: ";
     uvIndexEl.textContent = data.current.uvi;
 
+    // Clear any previous data
     currentWeatherEl.innerHTML = "";
+
     // Print city, date and current conditions to page
     currentWeatherEl.appendChild(currentInfoEl);
+    currentInfoEl.appendChild(currentIconEl);
     currentWeatherEl.appendChild(currentTempEl);
     currentWeatherEl.appendChild(currentWindEl);
     currentWeatherEl.appendChild(currentHumidityEl);
@@ -125,23 +136,35 @@ function renderDailyWeather(data) {
         fiveDayWeatherEl.append(dailyDiv);
         dailyDiv.setAttribute("class", "col-sm daily");
 
+        // src and alt for the weather icon img
+        var forecastIconUrl = "https://openweathermap.org/img/w/" + data.daily[i].weather[0].icon + ".png";
+        var forecastIconDescription = data.daily[i].weather[0].description;
+
         // Convert unix timecode into human-readable time
         var date = new Date (data.daily[i].dt * 1000).toLocaleDateString("en-US");
 
-        // Dynamic HTML elements for future conditions
+        // Dynamic HTML elements for five-day forecast
         var dateH4 = document.createElement("h4");
+        var iconNewLine = document.createElement("p");
+        var forecastIconEl = document.createElement("img");
         var dailyTempEl = document.createElement("p");
         var dailyWindEl = document.createElement("p");
         var dailyHumidityEl = document.createElement("p");
+
+        // Set src and alt for weather icon img
+        forecastIconEl.setAttribute("src", forecastIconUrl);
+        forecastIconEl.setAttribute("alt", forecastIconDescription);
         
-        // Set text content for dynamic elements
+        // Set content for dynamic elements
         dateH4.textContent = date;
         dailyTempEl.textContent = "Temp: " + data.daily[i].temp.day + "°F";
         dailyWindEl.textContent = "Wind: " + data.daily[i].wind_speed + " MPH";
         dailyHumidityEl.textContent = "Humidity: " + data.daily[i].humidity + "%";
 
-        // Print city, date and current conditions to page
+        // Print city, date and forecast to page
         dailyDiv.append(dateH4);
+        dailyDiv.appendChild(iconNewLine);
+        iconNewLine.appendChild(forecastIconEl);
         dailyDiv.appendChild(dailyTempEl);
         dailyDiv.appendChild(dailyWindEl);
         dailyDiv.appendChild(dailyHumidityEl);
@@ -168,6 +191,7 @@ function renderSearchHistory() {
     }
 }
 
+// Handles dynaminc buttons in search history
 function handleSearchHistory(e) {
     if (!e.target.matches(".history-btn")) {
         return
