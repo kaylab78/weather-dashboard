@@ -6,6 +6,11 @@ var fiveDayWeatherEl = document.querySelector("#five-day");
 var searchHistoryEl = document.querySelector("#search-history");
 var search = [];
 
+// When the page is fully loaded, load the previously searched cities
+$(document).ready(function () {
+    loadText();
+})
+
 function formSubmitHandler (event) {
     // Prevent page from refreshing
     event.preventDefault();
@@ -46,7 +51,7 @@ function getCoordinates (city) {
 
 function getWeather(data) {
     // Use lat and long variables to get current conditions and seven day weather
-    console.log(data);
+    // console.log(data);
     var city = data.name;
     var weatherApi = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly&units=imperial&appid=7ab439372a6b7834b1058543aced3bee";
 
@@ -58,7 +63,7 @@ function getWeather(data) {
                 alert("Error: City not found");
             }
         }).then(function (data) {
-            console.log(data);
+            // console.log(data);
             renderCurrentResults(data, city);
         }) 
         .catch(function (error) {
@@ -174,7 +179,7 @@ function renderDailyWeather(data) {
 // Save weather data to localStorage
 function saveData(data) {
     search.push(data);
-    localStorage.setItem("search-history", JSON.stringify(data));
+    localStorage.setItem("search-history", JSON.stringify(search));
     renderSearchHistory();
 }
 
@@ -200,6 +205,16 @@ function handleSearchHistory(e) {
     var historyBtn = e.target;
     var search = historyBtn.getAttribute("data-search");
     getCoordinates(search);
+}
+
+// Brings back search history from localStorage
+function loadText () {
+    var savedText = localStorage.getItem("search-history");
+
+    if (savedText) {
+        search = JSON.parse(savedText);
+    }
+    renderSearchHistory();
 }
 
 // Add event listener to form
